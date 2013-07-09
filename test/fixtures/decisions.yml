@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  decider_id: 1
+  decided_id: 1
+  like: false
+
+two:
+  decider_id: 1
+  decided_id: 1
+  like: false

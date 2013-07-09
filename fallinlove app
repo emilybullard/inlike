@@ -1,0 +1,26 @@
+fallinlove app
+
+Models
+
+User
+	name
+	email
+	location
+	birthday
+	gender
+	phone
+	preference
+
+Photo
+	user_id
+
+Decisions
+	user_id
+	decided_id
+	like (boolean)
+
+Messages
+	sender_id
+	recipient_id
+	body
+

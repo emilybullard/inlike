@@ -3,11 +3,25 @@ window.Fallinlike = {
   Collections: {},
   Views: {},
   Routers: {},
+  Store: {},
   initialize: function() {
-    alert('Hello from Backbone!');
+    var router = new Fallinlike.Routers.Router($('body'));
+    Backbone.history.start();
   }
 };
 
 $(document).ready(function(){
   Fallinlike.initialize();
+
+  var $container = $('#photo-boxes');
+  $container.packery({
+    itemSelector: '.item',
+    gutter: 10
+  });
+
+  var $itemElems = $(
+    $container.packery('getItemElements'));
+  $itemElems.draggable();
+  $container.packery('bindUIDraggableEvents', $itemElems);
+
 });

@@ -1,0 +1,1 @@
+Fallinlike.Models.Message = Backbone.RelationalModel.extend({});

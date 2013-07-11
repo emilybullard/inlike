@@ -3,10 +3,36 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
   	:username, :name, :birthday, :location, :gender, :preference
   # attr_accessible :title, :body
+
+  has_many :photos
+
+  has_many :decisions,
+  	:class_name => "Decision",
+  	:foreign_key => :decider_id
+
+  has_many :judged_users,
+  	:through => :decisions,
+  	:source => :judged_user
+
+  has_many :judgements,
+  	:class_name => "Decision",
+  	:foreign_key => :decided_id
+
+  has_many :judgers,
+  	:through => :judgements,
+  	:source => :judger
+
+  has_many :sent_messages,
+    :class_name => "Message",
+    :foreign_key => :sender_id
+
+  has_many :received_messages,
+    :class_name => "Message",
+    :foreign_key => :recipient_id
 end

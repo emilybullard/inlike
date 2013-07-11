@@ -1,0 +1,1 @@
+Fallinlike.Models.Decision = Backbone.RelationalModel.extend({});

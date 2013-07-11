@@ -1,0 +1,28 @@
+<div class="row current-user-photo text-center">
+  <div class="span2">
+    <img src="<%= user.get('photos').first().escape('image_url') %>">
+  </div>
+</div>
+
+<div class="row username text-center">
+  <div class="span2">
+    <%= user.escape('username') %>
+  </div>
+</div>
+
+<div class="row text-center">
+  <div class="span 2">
+  </div>
+</div>
+
+<div class="row text-center">
+  <div class="span2">
+    Settings
+  </div>
+</div>
+
+<div class="row text-center">
+  <div class="span2">
+    Log out
+  </div>
+</div>

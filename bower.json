@@ -1,0 +1,11 @@
+{
+   "lib": {
+    "dependencies": {      
+    }    
+  },
+  "vendor": {
+    "dependencies": {
+      "packery" : "git://github.com/metafizzy/packery.git"
+    }
+  }
+}

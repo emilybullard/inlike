@@ -1,0 +1,23 @@
+<script type="text/javascript">
+  var current_user = <%= current_user.to_json(:include => [:photos, :decisions]).html_safe %>
+  Fallinlike.Store.current_user = new Fallinlike.Models.User(current_user)
+
+  var fish = 
+  <%= User.includes(:photos).where(gender: current_user.preference).to_json(:include => :photos).html_safe %>
+  Fallinlike.Store.fish = new Fallinlike.Collections.Users();
+  Fallinlike.Store.fish.reset(fish);
+</script>
+
+<div class="container" id="main-wrapper">
+
+  <div class="row" style="height: 100%;">
+    
+    <div class="span2" id="side-nav" style="height: 100%;">
+      Sidebar nav
+    </div>
+
+    <div class="span10" id="drag-area" style="height: 100%;">
+
+    </div>
+  </div>
+</div>

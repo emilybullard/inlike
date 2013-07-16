@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  admirer_id: 1
+  admired_id: 1
+  alerted: false
+
+two:
+  admirer_id: 1
+  admired_id: 1
+  alerted: false

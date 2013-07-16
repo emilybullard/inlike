@@ -64,5 +64,7 @@ module Fallinlike
     config.assets.paths << Rails.root.join("vendor", "assets", "components")
     config.assets.paths << Rails.root.join("vendor", "assets", "bower_components")
 
+    config.filepicker_rails.api_key = "AWN38w7DR8qOX112gLvRwz"
+
   end
 end

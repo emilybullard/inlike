@@ -7,6 +7,12 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    render :json => @user.to_json(:include => :photos)
+  end
+
+  def update
+    @user = User.find(params[:id])
+    @user.update_attributes(params[:user])
     render :json => @user
   end
 

@@ -5,6 +5,11 @@ class Photo < ActiveRecord::Base
 
   validate :user_cant_have_more_than_5_photos
 
+  def set_photo_num
+    user = User.find(self.user_id)
+    self.photo_num = user.photos.count + 1
+  end
+
   private
 
   def user_cant_have_more_than_5_photos

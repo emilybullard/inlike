@@ -1,0 +1,101 @@
+<button type="button" class="close fui-cross" data-dismiss="modal"></button>
+<div class="row-fluid">
+  <div class="span10 offset1">
+    <div class="text-center"><h3>Edit Profile</h3></div>
+
+  <% var photos = user.get('photos') %>
+  <div class="row-fluid text-center">
+    <div class="span8 offset2">
+      <img src="<%= photos.models[0].get('image_url') %>"></img>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span2 offset2">
+      <% if (photos.models[1]) { %>
+        <img src="<%= photos.models[1].get('image_url') %>"></img>
+      <% } %>
+    </div>
+    <div class="span2">
+      <% if (photos.models[2]) { %>
+        <img src="<%= photos.models[2].get('image_url') %>"></img>
+      <% } %>
+    </div>
+    <div class="span2">
+      <% if (photos.models[3]) { %>
+        <img src="<%= photos.models[3].get('image_url') %>"></img>
+      <% } %>
+    </div>
+    <div class="span2">
+      <% if (photos.models[4]) { %>
+        <img src="<%= photos.models[4].get('image_url') %>"></img>
+      <% } %>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <button class="btn btn-primary upload-photo">Upload Photo</button>
+  </div>
+
+    <form class="form-inline">
+      <label for="birthday">Birthday:</label>
+      <input type="date" name="birthday" value="<%= user.escape('birthday').substr(0, 10) %>">
+      <br>
+    
+      <label for="location">Location:</label>
+      <input type="text" name="location" value="<%= user.get('location') %>">
+      <br><br>
+    
+      <div class="row-fluid">
+        <div class="span4 offset1">
+    
+          <strong><label for="gender">Gender:</label></strong><br>
+          <input type="radio"
+                 name="gender"
+                 id="gender_m"
+                 value="m"
+                 <%= user.get("gender") == "m" ? "checked" : "" %>>
+          <label for="gender_m">Male</label><br>
+    
+          <input type="radio"
+                 name="gender"
+                 id="gender_f"
+                 value="f"
+                  <%= user.get("gender") == "f" ? "checked" : "" %>>
+          <label for="gender_f">Female</label><br>
+        </div>
+    
+        <div class="span4 offset1">
+          <strong><label for="preference">Preference:</label></strong><br>
+          <input type="radio"
+                 name="preference"
+                 id="preference_m"
+                 value="m"
+                 <%= user.get("preference") == "m" ? "checked" : "" %>>
+          <label for="preference_m">Males</label><br>
+          <input type="radio"
+                 name="preference"
+                 id="preference_f"
+                 value="f"
+                  <%= user.get("preference") == "f" ? "checked" : "" %>>
+          <label for="preference_f">Females</label><br>
+          <input type="radio"
+                 name="preference"
+                 id="preference_b"
+                 value="b"
+                  <%= user.get("preference") == "b" ? "checked" : "" %>>
+          <label for="preference_b">Both</label>
+        </div>
+      </div>
+      <br>
+      <div class="row-fluid">
+        <div class="span6">
+          <input type="submit" value="Save Changes" class="btn btn-block btn-primary save-changes" data-dismiss="modal">
+        </div>
+        <div class="span6">
+          <input type="submit" value="Cancel" class="btn btn-block cancel-changes" data-dismiss="modal">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

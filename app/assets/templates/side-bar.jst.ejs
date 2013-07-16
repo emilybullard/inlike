@@ -6,7 +6,13 @@
 
 <div class="row username text-center">
   <div class="span2">
-    <%= user.escape('username') %>
+    <h2><%= user.escape('username') %></h2>
+  </div>
+</div>
+
+<div class="row text-center">
+  <div class="span2">
+    <button class="btn btn-block btn-primary edit-profile">Edit Profile</button>
   </div>
 </div>
 
@@ -17,7 +23,7 @@
 
 <div class="row text-center">
   <div class="span2">
-    Settings
+    <button class="btn btn-block btn-primary messages-index">Messages</button>
   </div>
 </div>
 
@@ -26,3 +32,5 @@
     Log out
   </div>
 </div>
+<div class="modal hide show-edit-profile"></div>
+<div class="modal hide show-messages"></div>

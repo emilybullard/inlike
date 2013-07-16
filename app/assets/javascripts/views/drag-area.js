@@ -1,5 +1,11 @@
 Fallinlike.Views.DragArea = Backbone.View.extend({
-	template: JST['users/drag-area'],
+
+  initialize: function() {
+    this.listenTo(Fallinlike.Store.current_user, "change", this.render);
+    this.listenTo(Fallinlike.Store.current_user.get('matches'), "add", this.alertMatch);
+  },
+
+	template: JST['drag-area'],
 
   className: "drag-area",
 
@@ -13,7 +19,31 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
     'rendered': 'initInteractive',
     'drop #decisions': 'removeItem',
     'mouseenter img': 'enlargePhoto',
-    'mouseleave img': 'restorePhotoSize'
+    'mouseleave img': 'restorePhotoSize',
+    'click .item': 'showProfile',
+    'mouseenter .item': 'checkForMatches',
+  },
+
+  checkForMatches: function() {
+    var that = this;
+    var matches = Fallinlike.Store.current_user.get('matches');
+    if (matches) {
+      matches.each(function (match) {
+        if (match.get('alerted') != true) {
+          console.log('where da matches at');
+          that.alertMatch();
+        }
+      });
+    }
+  },
+
+  alertMatch: function() {
+    var match = Fallinlike.Store.current_user.get('matches').last()
+    if (match.get('alerted') != true) {
+      var alertView = new Fallinlike.Views.AlertPage({model: match});
+      $('.match-alert').html(alertView.render().$el);
+      $('.match-alert').modal();
+    };
   },
 
   photoDiv: function() {
@@ -73,7 +103,6 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
   },
 
   reLayout: function() {
-    console.log("should relayout");
     this.$photoBoxes.packery();
   },
 
@@ -98,8 +127,18 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
       type: "post",
       success: function(data) {
         Fallinlike.Store.current_user.get('decisions').add(data);
+        var matches = Fallinlike.Store.current_user.get('matches')
+        matches.fetch();
       }
     })
+  },
+
+  showProfile: function(event) {
+    var id = $(event.target).parent().data('id');
+    var fish = Fallinlike.Store.fish.get(id);
+    var profileShow = new Fallinlike.Views.Profile({model: fish});
+    $('.profile').html(profileShow.render().$el);
+    $('.profile').modal();
   },
 
   addPictures: function(event) {
@@ -109,33 +148,54 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
       var fish = Fallinlike.Store.fish.models[i];
       if (fish) {
         var photo = fish.get('photos').first();
-        var $img = $('<img>')
-                            .attr("src", photo.get("image_url"));
-        var $div = that.photoDiv().data("id", fish.id).html($img);
-        that.$photoBoxes.append($div);
-        this.fishCount = i;
-        console.log(this.fishCount);
+        if (photo) {
+          var $img = $('<img>')
+                              .attr("src", photo.get("image_url"));
+          var $div = that.photoDiv().data("id", fish.id).html($img);
+          that.$photoBoxes.append($div);
+          this.fishCount = i;
+          imagesLoaded($div, this.fitPhotos.bind($div));
+        }
       }
     }
   },
 
   reloadFish: function() {
     var that = this;
-    for(var i = this.fishCount; i < 24; i++) {
+    for(var i = 0; i < 24; i++) {
       var fish = Fallinlike.Store.fish.models[i];
       if (fish) {
         var photo = fish.get('photos').first();
-        var $img = $('<img>')
-                            .attr("src", photo.get("image_url"));
-        var $div = that.photoDiv().data("id", fish.id).html($img);
-        $div.draggable();
-        that.$photoBoxes.append($div);
-        that.$photoBoxes.packery('appended', $div);
-        this.$photoBoxes.packery('bindUIDraggableEvents', $div);
-        this.fishCount = i;
-        console.log(this.fishCount);
+        if (photo) {
+          var $img = $('<img>')
+                              .attr("src", photo.get("image_url"));
+          var $div = that.photoDiv().data("id", fish.id).html($img);
+          $div.draggable();
+          that.$photoBoxes.append($div);
+          that.$photoBoxes.packery('appended', $div);
+          this.$photoBoxes.packery('bindUIDraggableEvents', $div);
+          this.fishCount = i;
+          imagesLoaded($div, this.fitPhotos.bind($div));
+        }
       }
     }
+  },
+
+  fitPhotos: function() {
+      var refH = $(this).height();
+      var refW = $(this).width();
+      var refRatio = (refW/refH);
+
+      $img = $(this).children("img")[0];
+
+      var imgH = $img.naturalHeight;
+      var imgW = $img.naturalWidth;
+
+      if ( (imgW/imgH) < 1 ) {
+        $(this).addClass("portrait");
+      } else {
+        $(this).addClass("landscape");
+      }
   },
 
 });

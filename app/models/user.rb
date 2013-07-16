@@ -35,4 +35,16 @@ class User < ActiveRecord::Base
   has_many :received_messages,
     :class_name => "Message",
     :foreign_key => :recipient_id
+
+  has_many :matches,
+    :class_name => "Match",
+    :foreign_key => :admired_id
+
+  has_many :matched_users,
+    :through => :matches,
+    :source => :admired_user
+
+  has_many :admirations,
+    :class_name => "Match",
+    :foreign_key => :admirer_id
 end

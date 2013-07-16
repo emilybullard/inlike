@@ -1,0 +1,20 @@
+<button type="button" class="close fui-cross" data-dismiss="modal"></button>
+<div class="row-fluid">
+<div class="span12 text-center">
+<h1>You have a match!</h1>
+<% if (admirer.get('photos')) { %>
+<img src="<%= admirer.get('photos').models[0].get('image_url') %>"></img>
+<% }; %>
+<br>
+<h3><%= admirer.get('name') %></h3>
+<br>
+<h6><%= admirer.get('name') %> is into you. Send <%= admirer.get('name') %> a message!</h6>
+<br>
+<button class="btn btn-huge btn-primary create-message" data-dismiss="modal">Send Message</button>
+<br>
+<br>
+<button class="btn btn-huge fail-to-seize-opportunity" data-dismiss="modal">Nah, I'm too shy.</button>
+<br>
+<br>
+</div>
+</div>

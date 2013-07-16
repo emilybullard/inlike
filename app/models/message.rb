@@ -1,5 +1,5 @@
 class Message < ActiveRecord::Base
-  attr_accessible :body, :recipient_id, :sender_id
+  attr_accessible :body, :recipient_id, :sender_id, :read
 
   belongs_to :sender,
   	:class_name => "User",

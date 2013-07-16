@@ -37,11 +37,6 @@ Fallinlike.Models.User = Backbone.RelationalModel.extend({
 		keySource: "sent_messages",
 		relatedModel: "Fallinlike.Models.Message",
 		collectionType: "Fallinlike.Collections.Messages",
-		reverseRelation: {
-			key: "sender",
-			keySource: "sender_id",
-			autoFetch: true
-		}
 	},
 	{
 		type: Backbone.HasMany,
@@ -49,11 +44,19 @@ Fallinlike.Models.User = Backbone.RelationalModel.extend({
 		keySource: "received_messages",
 		relatedModel: "Fallinlike.Models.Message",
 		collectionType: "Fallinlike.Collections.Messages",
-		reverseRelation: {
-			key: "recipient",
-			keySource: "recipient_id",
-			autoFetch: true
-		}
+	},
+	{
+		type: Backbone.HasMany,
+		key: "matches",
+		relatedModel: "Fallinlike.Models.Match",
+		collectionType: "Fallinlike.Collections.Matches",
+		autoFetch: true
+	},
+	{
+		type: Backbone.HasMany,
+		key: "admirations",
+		relatedModel: "Fallinlike.Models.Match",
+		collectionType: "Fallinlike.Collections.Matches",
 	}],
 
 	urlRoot: "/users/"

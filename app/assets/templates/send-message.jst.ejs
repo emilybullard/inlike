@@ -1,0 +1,12 @@
+<button type="button" class="close fui-cross" data-dismiss="modal"></button>
+<div class="row-fluid">
+  <div class="span8 offset2 text-center">
+    <h3>Send a message to <%= recipient.escape('name') %></h3>
+    <form>
+    <textarea class="body" class="span6" rows="3" placeholder="Break the ice..."></textarea>
+    <br>
+    <button type="button" class="btn btn-large btn-primary send-message">Send</button>
+    <button type="button" class="btn btn-large close-message" data-dismiss="modal">Cancel</button>
+    </form> 
+  </div>
+</div>

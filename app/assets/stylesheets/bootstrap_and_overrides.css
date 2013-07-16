@@ -43,8 +43,16 @@ body {
 
 .item {
   background-color: gray;
+  float: left;
   overflow: hidden;
 }
+
+.item img {
+  display: block;
+  position: absolute;
+  max-width: none;
+}
+
 
 .w1 {
   width: 150px;
@@ -66,7 +74,14 @@ body {
   height: 225px;
 }
 
-.item img {
+.landscape img {
+  height: 100%;
+  width: auto;
+}
+
+.portrait img {
   width: 100%;
   height: auto;
 }
+
+

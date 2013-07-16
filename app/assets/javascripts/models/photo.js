@@ -3,5 +3,7 @@ Fallinlike.Models.Photo = Backbone.RelationalModel.extend({
 		type: Backbone.HasOne,
 		key: "user",
 		relatedModel: "Fallinlike.Models.User",
-	}]
+	}],
+
+  urlRoot: "/photos/"
 });

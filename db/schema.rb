@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130709203234) do
+ActiveRecord::Schema.define(:version => 20130712204515) do
 
   create_table "decisions", :force => true do |t|
     t.integer  "decider_id"
@@ -21,12 +21,22 @@ ActiveRecord::Schema.define(:version => 20130709203234) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "matches", :force => true do |t|
+    t.integer  "admirer_id"
+    t.integer  "admired_id"
+    t.boolean  "alerted",    :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
   create_table "messages", :force => true do |t|
     t.integer  "sender_id"
     t.integer  "recipient_id"
     t.text     "body"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "read",         :default => false
+    t.integer  "reply_to"
   end
 
   create_table "photos", :force => true do |t|

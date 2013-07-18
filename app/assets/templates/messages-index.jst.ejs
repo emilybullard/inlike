@@ -22,7 +22,7 @@
           <tr>
             <td>
               <a class="show-user-profile" data-id="<%= message.get('sender').id %>">
-                <%= message.get('sender').escape('username') %>
+                <%= message.get('sender').escape('name') %>
               </a>
             </td>
             <td><%= message.escape('created_at').substr(0, 10) %></td>

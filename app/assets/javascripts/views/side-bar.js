@@ -1,9 +1,11 @@
 Fallinlike.Views.SideBar = Backbone.View.extend({
+
   template: JST['side-bar'],
 
   events: {
     "click button.edit-profile": "showProfileEdit",
-    "click button.messages-index": "showMessages"
+    "click button.messages-index": "showMessages",
+    "click button.log-out": "logOut"
   },
 
   render: function() {
@@ -22,6 +24,21 @@ Fallinlike.Views.SideBar = Backbone.View.extend({
     var messagesIndex = new Fallinlike.Views.MessagesIndex({model: Fallinlike.Store.current_user});
     $('.show-messages').html(messagesIndex.render().$el);
     $('.show-messages').modal();
+  },
+
+  logOut: function() {
+    event.preventDefault();
+    $.ajax({
+      url: "/users/sign_out/",
+      type: "delete",
+      success: function() {
+
+        window.location.href = "/users/sign_in/"
+      },
+      error: function() {
+        console.log("Failed to log out.")
+      }
+    })
   },
 
 });

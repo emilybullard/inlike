@@ -1,14 +1,23 @@
+<br>
 <div class="row current-user-photo text-center">
   <div class="span2">
-    <img src="<%= user.get('photos').first().escape('image_url') %>">
+    <div class="item w1 user-image">
+      <img src="<%= user.get('photos').first().escape('image_url') %>"></img>
+    </div>
   </div>
 </div>
 
+
 <div class="row username text-center">
   <div class="span2">
-    <h2><%= user.escape('username') %></h2>
+  <p>Logged in as</p>
+    <h2><span class="current-user-name"><%= user.escape('name') %></span></h2>
   </div>
 </div>
+
+<br>
+<br>
+<br>
 
 <div class="row text-center">
   <div class="span2">
@@ -16,10 +25,7 @@
   </div>
 </div>
 
-<div class="row text-center">
-  <div class="span 2">
-  </div>
-</div>
+<br>
 
 <div class="row text-center">
   <div class="span2">
@@ -27,9 +33,12 @@
   </div>
 </div>
 
+<br>
+
 <div class="row text-center">
   <div class="span2">
-    Log out
+  <button class="btn btn-block btn-primary log-out">Log Out
+  </button>
   </div>
 </div>
 <div class="modal hide show-edit-profile"></div>

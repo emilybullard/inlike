@@ -6,7 +6,8 @@ Fallinlike.Routers.Router = Backbone.Router.extend({
 	},
 
 	routes: {
-    "": "showDragArea"
+    "": "showDragArea",
+    "_=_": "showDragArea"
 	},
 
 	showDragArea: function() {

@@ -29,6 +29,9 @@ gem 'backbone-on-rails'
 gem "bower-rails", "~> 0.3.2"
 gem 'devise'
 gem 'pure-rails'
+gem 'omniauth'
+gem 'omniauth-facebook', '1.4.0'
+gem 'koala'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

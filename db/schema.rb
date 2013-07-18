@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130712204515) do
+ActiveRecord::Schema.define(:version => 20130717212045) do
 
   create_table "decisions", :force => true do |t|
     t.integer  "decider_id"
@@ -66,6 +66,9 @@ ActiveRecord::Schema.define(:version => 20130712204515) do
     t.string   "location"
     t.string   "gender"
     t.string   "preference"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "oauth_token"
   end
 
 end

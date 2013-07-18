@@ -36,4 +36,7 @@ Fallinlike::Application.configure do
   config.assets.debug = true
 
   config.action_mailer.default_url_options = { :host => 'localost:3000' }
+
+  FACEBOOK_KEY = '495400677203531'
+  FACEBOOK_SECRET = '7e3ebe7129c7ea057916397c26734109'
 end

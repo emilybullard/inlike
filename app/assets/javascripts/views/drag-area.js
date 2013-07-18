@@ -21,7 +21,7 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
     'mouseenter img': 'enlargePhoto',
     'mouseleave img': 'restorePhotoSize',
     'click .item': 'showProfile',
-    'mouseenter .item': 'checkForMatches',
+    // 'mouseenter .item': 'checkForMatches',
   },
 
   checkForMatches: function() {
@@ -30,7 +30,6 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
     if (matches) {
       matches.each(function (match) {
         if (match.get('alerted') != true) {
-          console.log('where da matches at');
           that.alertMatch();
         }
       });
@@ -113,6 +112,7 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
     if ($item.size()) {
       this.makeDecision(id, decision);
       this.$photoBoxes.packery('remove', $item);
+      $item.remove();
       this.fishCount -= 1;
       this.$photoBoxes.packery();
     };
@@ -143,26 +143,34 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
 
   addPictures: function(event) {
     var that = this;
+    var divsToLoad = [];
 
-    for (var i = 0; i < 24; i++) {
+    for (var i = 0; i < 16; i++) {
       var fish = Fallinlike.Store.fish.models[i];
       if (fish) {
         var photo = fish.get('photos').first();
         if (photo) {
-          var $img = $('<img>')
-                              .attr("src", photo.get("image_url"));
+          var $img = $('<img>').attr("src", photo.get("image_url"));
           var $div = that.photoDiv().data("id", fish.id).html($img);
           that.$photoBoxes.append($div);
           this.fishCount = i;
-          imagesLoaded($div, this.fitPhotos.bind($div));
+          divsToLoad.push($div);
         }
       }
     }
+
+    imagesLoaded($('.item'), function(instance) {
+      _(divsToLoad).each(function($div) {
+        Fallinlike.fitPhotos($div)
+      })
+    });
   },
 
   reloadFish: function() {
     var that = this;
-    for(var i = 0; i < 24; i++) {
+    var divsToLoad = [];
+
+    for(var i = 0; i < 16; i++) {
       var fish = Fallinlike.Store.fish.models[i];
       if (fish) {
         var photo = fish.get('photos').first();
@@ -175,27 +183,18 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
           that.$photoBoxes.packery('appended', $div);
           this.$photoBoxes.packery('bindUIDraggableEvents', $div);
           this.fishCount = i;
-          imagesLoaded($div, this.fitPhotos.bind($div));
+          divsToLoad.push($div);
         }
       }
     }
-  },
 
-  fitPhotos: function() {
-      var refH = $(this).height();
-      var refW = $(this).width();
-      var refRatio = (refW/refH);
-
-      $img = $(this).children("img")[0];
-
-      var imgH = $img.naturalHeight;
-      var imgW = $img.naturalWidth;
-
-      if ( (imgW/imgH) < 1 ) {
-        $(this).addClass("portrait");
-      } else {
-        $(this).addClass("landscape");
-      }
+    imagesLoaded($('.item'), function(instance) {
+      _(divsToLoad).each(function($div) {
+        Fallinlike.fitPhotos($div)
+      })
+    });
+    
+    this.checkForMatches();
   },
 
 });

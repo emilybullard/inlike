@@ -20,6 +20,7 @@
 //= require backbone
 //= require backbone-relational
 //= require packery-1.0.6
+//= require jquery-imagefill
 //= require fallinlike
 //= require_tree ../templates
 //= require_tree ./models

@@ -30,18 +30,28 @@ body {
 }
 
 #like {
-  background-color: green;
+  background-color: #0DFF98;
+  border: 10px solid;
+  border-color: white;
+  border-radius: 10px;
 }
 
 #dislike {
-  background-color: red;
+  background-color: #FF6047;
+  border: 10px solid;
+  border-color: white;
+  border-radius: 10px;
 }
 
 .drag-area {
+  padding-top: 20px;
   overflow: hidden;
 }
 
 .item {
+  border: 3px solid;
+  border-color: white;
+  border-radius: 5px;
   background-color: gray;
   float: left;
   overflow: hidden;
@@ -86,4 +96,35 @@ body {
 
 a {
   cursor: pointer;
+}
+
+.user-image img{
+  position: static;
+  width: 100%;
+  height: auto;
+}
+
+#photo-boxes {
+  padding: 10px;
+}
+
+.current-user-name {
+  color: #FFFFFF;
+}
+
+#decisions h1 {
+  color: #8C8C99;
+}
+
+.sign-up {
+  padding-top: 50px;
+  color: white;
+}
+
+.app-title {
+  color: #FF9EA2;
+}
+
+body {
+  background-color: #0F2333;
 }

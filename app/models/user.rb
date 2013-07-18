@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   	:username, :name, :birthday, :location, :gender, :preference, :uid, :name, :provider, :oauth_token
   # attr_accessible :title, :body
 
+  before_save :set_preference
+
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
     unless user
@@ -54,6 +56,12 @@ class User < ActiveRecord::Base
 
   def facebook
     @facebook ||= Koala::Facebook::API.new(oauth_token)
+  end
+
+  def set_preference
+    unless self.preference
+      self.preference = (self.gender == "m" ? "f" : "m")
+    end
   end
 
   has_many :photos

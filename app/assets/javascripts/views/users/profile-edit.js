@@ -21,7 +21,7 @@ Fallinlike.Views.ProfileEdit = Backbone.View.extend({
     event.preventDefault();
     var data = $(event.target.form).serializeJSON();
     Fallinlike.Store.current_user.save(data, {wait: true});
-
+    document.location.reload();
   },
 
   uploadPhoto: function(event) {

@@ -98,9 +98,25 @@ a {
   cursor: pointer;
 }
 
-.user-image img{
+.user-image img {
+  border: 3px solid;
+  border-color: white;
+  border-radius: 5px;
+  background-color: gray;
+  float: left;
+  overflow: hidden;
   position: static;
   width: 100%;
+  height: auto;
+}
+
+.profile-image img {
+  border: 5px solid;
+  border-color: #0F2333;
+  border-radius: 5px;
+  background-color: gray;
+  position: static;
+  max-width: 100%;
   height: auto;
 }
 

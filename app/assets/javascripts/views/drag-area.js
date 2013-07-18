@@ -159,10 +159,13 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
       }
     }
 
-    imagesLoaded($('.item'), function(instance) {
+    // imagesLoaded(divsToLoad, function(instance) {
       _(divsToLoad).each(function($div) {
-        Fallinlike.fitPhotos($div)
-      })
+        imagesLoaded($div, function() {
+          Fallinlike.fitPhotos($div);
+        })
+        // Fallinlike.fitPhotos($div);
+      // })
     });
   },
 
@@ -190,10 +193,10 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
 
     imagesLoaded($('.item'), function(instance) {
       _(divsToLoad).each(function($div) {
-        Fallinlike.fitPhotos($div)
+        Fallinlike.fitPhotos($div);
       })
     });
-    
+
     this.checkForMatches();
   },
 

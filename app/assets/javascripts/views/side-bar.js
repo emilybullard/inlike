@@ -14,6 +14,12 @@ Fallinlike.Views.SideBar = Backbone.View.extend({
     return this;
   },
 
+  addUserPhoto: function() {
+    main_img_src = this.model.get('photos').first().get('image_url')
+    $img = $('<img>').attr('src', main_img_src)
+    $('.user-image').append()
+  },
+
   showProfileEdit: function() {
     var profileEdit = new Fallinlike.Views.ProfileEdit({model: Fallinlike.Store.current_user});
     $('.show-edit-profile').html(profileEdit.render().$el);

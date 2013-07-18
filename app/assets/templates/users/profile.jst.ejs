@@ -3,15 +3,16 @@
   <div class="span10 offset1">
     <div class="text-center">
       <h1><%= user.escape('name') %></h1>
-      <img src="<%= user.get('photos').first().get('image_url') %>"></img>
-      <div class="profile-photos">
-        User photos should go here...
+      <div class="profile-image">
+        <img src="<%= user.get('photos').first().get('image_url') %>"></img>
       </div>
-      Username: <%= user.escape('username') %>
       <br>
-      Location: <%= user.escape('location') %>
       <br>
-      Birthday: <%= user.escape('birthday') %>
+      <strong>Username:</strong> <%= user.escape('username') %>
+      <br>
+      <strong>Location:</strong> <%= user.escape('location') %>
+      <br>
+      <strong>Birthday:</strong> <%= user.escape('birthday') %>
     </div>
   </div>
 </div>

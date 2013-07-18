@@ -22,9 +22,26 @@ class User < ActiveRecord::Base
                          email: auth.info.email,
                          password: Devise.friendly_token[0, 20],
                          oauth_token: auth.credentials.token)
-      user.photos.create(:photo_num => 1, :image_url => auth.info.image)
+
+      user.create_photos
     end
     user
+  end
+
+  def create_photos
+    albums = self.facebook.get_connections("me", "albums")
+    album_id = nil
+
+    albums.each do |album| 
+      album_id = album["id"] if album["name"] == "Profile Pictures"
+    end
+
+    photos = self.facebook.get_connections(album_id, "photos")
+
+    5.times do |i|
+      self.photos.create(:photo_num => i + 1,
+                         :image_url => photos[i]["source"])
+    end
   end
 
   def self.new_with_session(params, session)

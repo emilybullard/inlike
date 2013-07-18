@@ -3,6 +3,7 @@
   <div class="span10 offset1">
     <div class="text-center"><h3>Edit Profile</h3></div>
 
+  <% if (user.get('photos').size()) { %>
   <% var photos = user.get('photos') %>
   <div class="row-fluid text-center">
     <div class="span8 offset2">
@@ -32,6 +33,7 @@
       <% } %>
     </div>
   </div>
+  <% } %>
 
   <div class="text-center">
     <button class="btn btn-primary upload-photo">Upload Photo</button>

@@ -33,13 +33,10 @@ class User < ActiveRecord::Base
   def create_photos
     albums = self.facebook.get_connections("me", "albums")
     album_id = nil
-
     albums.each do |album| 
       album_id = album["id"] if album["name"] == "Profile Pictures"
     end
-
     photos = self.facebook.get_connections(album_id, "photos")
-
     5.times do |i|
       self.photos.create(:photo_num => i + 1,
                          :image_url => photos[i]["source"])

@@ -65,6 +65,6 @@ Fallinlike::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  FACEBOOK_KEY = '495400677203531'
-  FACEBOOK_SECRET = '7e3ebe7129c7ea057916397c26734109'
+  FACEBOOK_KEY = ENV['FACEBOOK_KEY']
+  FACEBOOK_SECRET = ENV['FACEBOOK_SECRET']
 end

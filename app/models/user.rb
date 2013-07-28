@@ -68,6 +68,10 @@ class User < ActiveRecord::Base
     user
   end
 
+  def make_decision(params, decision)
+    self.decisions.create!(decided_id: params, like: decision)
+  end
+
   def create_photos
     albums = self.facebook.get_connections("me", "albums")
     album_id = nil

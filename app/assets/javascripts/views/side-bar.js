@@ -8,6 +8,8 @@ Fallinlike.Views.SideBar = Backbone.View.extend({
     "click button.log-out": "logOut"
   },
 
+  current_user: Fallinlike.Store.current_user,
+
   render: function() {
     var renderedContent = this.template({user: this.model});
     this.$el.html(renderedContent);
@@ -21,13 +23,13 @@ Fallinlike.Views.SideBar = Backbone.View.extend({
   },
 
   showProfileEdit: function() {
-    var profileEdit = new Fallinlike.Views.ProfileEdit({model: Fallinlike.Store.current_user});
+    var profileEdit = new Fallinlike.Views.ProfileEdit({model: this.current_user});
     $('.show-edit-profile').html(profileEdit.render().$el);
     $('.show-edit-profile').modal();
   },
 
   showMessages: function() {
-    var messagesIndex = new Fallinlike.Views.MessagesIndex({model: Fallinlike.Store.current_user});
+    var messagesIndex = new Fallinlike.Views.MessagesIndex({model: this.current_user});
     $('.show-messages').html(messagesIndex.render().$el);
     $('.show-messages').modal();
   },
@@ -35,15 +37,14 @@ Fallinlike.Views.SideBar = Backbone.View.extend({
   logOut: function() {
     event.preventDefault();
     $.ajax({
-      url: "/users/sign_out/",
-      type: "delete",
+          url: "/users/sign_out/",
+         type: "delete",
       success: function() {
-
         window.location.href = "/users/sign_in/"
       },
-      error: function() {
-        console.log("Failed to log out.")
-      }
+        error: function() {
+          console.log("Failed to log out.")
+        }
     })
   },
 

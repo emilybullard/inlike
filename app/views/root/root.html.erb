@@ -2,10 +2,10 @@
   var current_user = <%= current_user.to_json(:include => [:photos, :decisions, :matches, :received_messages, :sent_messages]).html_safe %>
   Fallinlike.Store.current_user = new Fallinlike.Models.User(current_user)
 
-  var fish = 
+  var users = 
   <%= User.includes(:photos).where(gender: current_user.preference).to_json(:include => :photos).html_safe %>
-  Fallinlike.Store.fish = new Fallinlike.Collections.Users();
-  Fallinlike.Store.fish.reset(fish);
+  Fallinlike.Store.users = new Fallinlike.Collections.Users();
+  Fallinlike.Store.users.reset(users);
 
   filepicker.setKey("AWN38w7DR8qOX112gLvRwz");
 
@@ -16,7 +16,6 @@
   <div class="row" style="height: 100%;">
     
     <div class="span2" id="side-nav" style="height: 100%;">
-      Sidebar nav
     </div>
 
     <div class="span10" id="drag-area" style="height: 100%;">

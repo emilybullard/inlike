@@ -14,14 +14,13 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
   },
 
   events: {
-    'dragstop': "reLayout",
-    'needFish': 'reloadFish',
-    'rendered': 'initInteractive',
-    'drop #decisions': 'removeItem',
-    'mouseenter img': 'enlargePhoto',
-    'mouseleave img': 'restorePhotoSize',
-    'click .item': 'showProfile',
-    // 'mouseenter .item': 'checkForMatches',
+         'dragstop': "reLayout",
+    'needMoreUsers': 'reloadUsers',
+         'rendered': 'initInteractive',
+  'drop #decisions': 'removeItem',
+   'mouseenter img': 'enlargePhoto',
+   'mouseleave img': 'restorePhotoSize',
+      'click .item': 'showProfile',
   },
 
   checkForMatches: function() {
@@ -73,7 +72,7 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
   initPackery: function() {
     this.$photoBoxes.packery({
       itemSelector: '.item',
-      gutter: 10,
+            gutter: 10,
     });
   },
 
@@ -88,7 +87,7 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
   enlargePhoto: function(event) {
     $(event.target).parent().animate({
       margin: -5,
-      width: "+=10",
+       width: "+=10",
       height: "+=10"
     }, 100);
   },
@@ -96,7 +95,7 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
   restorePhotoSize: function() {
     $(event.target).parent().animate({
       margin: 0,
-      width: "-=10",
+       width: "-=10",
       height: "-=10"
     }, 100);
   },
@@ -113,18 +112,18 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
       this.makeDecision(id, decision);
       this.$photoBoxes.packery('remove', $item);
       $item.remove();
-      this.fishCount -= 1;
+      this.userCount -= 1;
       this.$photoBoxes.packery();
     };
-    if (this.fishCount < 15) {
-      this.$el.trigger('needFish');
+    if (this.userCount < 15) {
+      this.$el.trigger('needMoreUsers');
     };
   },
 
   makeDecision: function(decidedId, decision) {
     $.ajax({
-      url: "/users/" + decidedId + "/" + decision,
-      type: "post",
+          url: "/users/" + decidedId + "/" + decision,
+         type: "post",
       success: function(data) {
         Fallinlike.Store.current_user.get('decisions').add(data);
         var matches = Fallinlike.Store.current_user.get('matches')
@@ -135,8 +134,8 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
 
   showProfile: function(event) {
     var id = $(event.target).parent().data('id');
-    var fish = Fallinlike.Store.fish.get(id);
-    var profileShow = new Fallinlike.Views.Profile({model: fish});
+    var user = Fallinlike.Store.users.get(id);
+    var profileShow = new Fallinlike.Views.Profile({model: user});
     $('.profile').html(profileShow.render().$el);
     $('.profile').modal();
   },
@@ -146,46 +145,42 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
     var divsToLoad = [];
 
     for (var i = 0; i < 16; i++) {
-      var fish = Fallinlike.Store.fish.models[i];
-      if (fish) {
-        var photo = fish.get('photos').first();
+      var user = Fallinlike.Store.users.models[i];
+      if (user) {
+        var photo = user.get('photos').first();
         if (photo) {
           var $img = $('<img>').attr("src", photo.get("image_url"));
-          var $div = that.photoDiv().data("id", fish.id).html($img);
+          var $div = that.photoDiv().data("id", user.id).html($img);
           that.$photoBoxes.append($div);
-          this.fishCount = i;
+          this.userCount = i;
           divsToLoad.push($div);
         }
       }
     }
 
-    // imagesLoaded(divsToLoad, function(instance) {
-      _(divsToLoad).each(function($div) {
-        imagesLoaded($div, function() {
-          Fallinlike.fitPhotos($div);
-        })
-        // Fallinlike.fitPhotos($div);
-      // })
+    _(divsToLoad).each(function($div) {
+      imagesLoaded($div, function() {
+        Fallinlike.fitPhotos($div);
+      })
     });
   },
 
-  reloadFish: function() {
+  reloadUsers: function() {
     var that = this;
     var divsToLoad = [];
 
     for(var i = 0; i < 16; i++) {
-      var fish = Fallinlike.Store.fish.models[i];
-      if (fish) {
-        var photo = fish.get('photos').first();
+      var user = Fallinlike.Store.users.models[i];
+      if (user) {
+        var photo = user.get('photos').first();
         if (photo) {
-          var $img = $('<img>')
-                              .attr("src", photo.get("image_url"));
-          var $div = that.photoDiv().data("id", fish.id).html($img);
+          var $img = $('<img>').attr("src", photo.get("image_url"));
+          var $div = that.photoDiv().data("id", user.id).html($img);
           $div.draggable();
           that.$photoBoxes.append($div);
           that.$photoBoxes.packery('appended', $div);
           this.$photoBoxes.packery('bindUIDraggableEvents', $div);
-          this.fishCount = i;
+          this.userCount = i;
           divsToLoad.push($div);
         }
       }

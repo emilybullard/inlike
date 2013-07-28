@@ -16,10 +16,7 @@ class Decision < ActiveRecord::Base
     @admired_user = User.find(self.decided_id)
     @decision = @admired_user.decisions.where(:decided_id => self.decider_id, :like => true).first
     if @decision && self.like
-      @decider_match = Match.new(:admirer_id => self.decider_id, :admired_id => self.decided_id)
-      @decided_match = Match.new(:admirer_id => self.decided_id, :admired_id => self.decider_id)
-      @decider_match.save
-      @decided_match.save
+      Match.create_matches(self.decider_id, self.decided_id)
     end
   end
 

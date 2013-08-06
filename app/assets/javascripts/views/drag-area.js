@@ -49,7 +49,7 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
     var randSize = function() {
       return sizes[_.random(0, sizes.length - 1)];
     };
-    return $('<div>').addClass('item').addClass(randSize());
+    return $('<div>').attr('class','text-center item').addClass(randSize());
   },
 
 	render: function() {
@@ -171,10 +171,9 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
     var that = this;
     var divsToLoad = [];
     var userCount = Fallinlike.Store.users.models.length
-    var randNum = Math.floor(Math.random() * userCount);
     if (this.userCount < 18) {
       for(var i = this.userCount; i < 16; i++) {
-        var user = Fallinlike.Store.users.models[randNum];
+        var user = Fallinlike.Store.users.models[Math.floor(Math.random() * userCount)];
         if (user) {
           var photo = user.get('photos').first();
           if (photo) {
@@ -184,7 +183,7 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
             that.$photoBoxes.append($div);
             that.$photoBoxes.packery('appended', $div);
             this.$photoBoxes.packery('bindUIDraggableEvents', $div);
-            this.userCount = i;
+            this.userCount += 1;
             divsToLoad.push($div);
           }
         }

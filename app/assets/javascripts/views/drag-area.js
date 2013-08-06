@@ -170,23 +170,26 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
   reloadUsers: function() {
     var that = this;
     var divsToLoad = [];
-
-    for(var i = this.userCount; i < 16; i++) {
-      var user = Fallinlike.Store.users.models[i];
-      if (user) {
-        var photo = user.get('photos').first();
-        if (photo) {
-          var $img = $('<img>').attr("src", photo.get("image_url"));
-          var $div = that.photoDiv().data("id", user.id).html($img);
-          $div.draggable();
-          that.$photoBoxes.append($div);
-          that.$photoBoxes.packery('appended', $div);
-          this.$photoBoxes.packery('bindUIDraggableEvents', $div);
-          this.userCount = i;
-          divsToLoad.push($div);
+    var userCount = Fallinlike.Store.users.models.length
+    var randNum = Math.floor(Math.random() * userCount);
+    if (this.userCount < 18) {
+      for(var i = this.userCount; i < 16; i++) {
+        var user = Fallinlike.Store.users.models[randNum];
+        if (user) {
+          var photo = user.get('photos').first();
+          if (photo) {
+            var $img = $('<img>').attr("src", photo.get("image_url"));
+            var $div = that.photoDiv().data("id", user.id).html($img);
+            $div.draggable();
+            that.$photoBoxes.append($div);
+            that.$photoBoxes.packery('appended', $div);
+            this.$photoBoxes.packery('bindUIDraggableEvents', $div);
+            this.userCount = i;
+            divsToLoad.push($div);
+          }
         }
       }
-    }
+    };
 
     imagesLoaded($('.item'), function(instance) {
       _(divsToLoad).each(function($div) {

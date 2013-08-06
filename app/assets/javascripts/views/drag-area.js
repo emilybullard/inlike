@@ -108,6 +108,8 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
     var $item = $('.ui-draggable-dragging');
     var decision = $(event.target).attr('id');
     var id = $item.data('id');
+    // console.log(this.userCount);
+    // check real userCount
     if ($item.size()) {
       this.makeDecision(id, decision);
       this.$photoBoxes.packery('remove', $item);
@@ -169,7 +171,7 @@ Fallinlike.Views.DragArea = Backbone.View.extend({
     var that = this;
     var divsToLoad = [];
 
-    for(var i = 0; i < 16; i++) {
+    for(var i = this.userCount; i < 16; i++) {
       var user = Fallinlike.Store.users.models[i];
       if (user) {
         var photo = user.get('photos').first();

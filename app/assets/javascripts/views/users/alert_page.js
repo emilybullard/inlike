@@ -36,3 +36,6 @@ Fallinlike.Views.AlertPage = Backbone.View.extend({
   },
 
 });
+
+// read a time and give out a string with "AM" or "PM" attached to the end
+// #reset isCurent to false for songs that already get played

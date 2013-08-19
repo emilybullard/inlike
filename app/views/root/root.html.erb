@@ -1,9 +1,9 @@
 <script type="text/javascript">
-  var current_user = <%= current_user.to_json(:include => [:photos, :decisions, :matches, :received_messages, :sent_messages]).html_safe %>
+  var current_user = <%= current_or_guest_user.to_json(:include => [:photos, :decisions, :matches, :received_messages, :sent_messages]).html_safe %>
   Fallinlike.Store.current_user = new Fallinlike.Models.User(current_user)
 
   var users = 
-  <%= User.includes(:photos).where(gender: current_user.preference).to_json(:include => :photos).html_safe %>
+  <%= User.includes(:photos).where(gender: current_or_guest_user.preference).to_json(:include => :photos).html_safe %>
   Fallinlike.Store.users = new Fallinlike.Collections.Users();
   Fallinlike.Store.users.reset(users);
 

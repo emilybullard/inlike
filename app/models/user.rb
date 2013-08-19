@@ -97,6 +97,10 @@ class User < ActiveRecord::Base
     @facebook ||= Koala::Facebook::API.new(oauth_token)
   end
 
+  def set_guest_photo
+    self.photos.create(:image_url => "https://dl.dropboxusercontent.com/u/34120492/frankocean.jpg")
+  end
+
   private
 
   def set_preference

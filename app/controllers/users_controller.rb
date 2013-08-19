@@ -17,12 +17,12 @@ class UsersController < ApplicationController
   end
 
   def like
-    @like = current_user.make_decision(params[:id], true)
+    @like = current_or_guest_user.make_decision(params[:id], true)
     render :json => @like
   end
 
   def dislike
-    @dislike = current_user.make_decision(params[:id], false)
+    @dislike = current_or_guest_user.make_decision(params[:id], false)
     render :json => @dislike
   end
 

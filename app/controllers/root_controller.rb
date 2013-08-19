@@ -2,7 +2,10 @@ class RootController < ApplicationController
   before_filter :check_for_current_or_guest, :except => :guest 
 
   def root
-    @user = current_or_guest_user
+    @user = current_or_guest_user.to_json(
+      :include => [:photos, :decisions, :matches, 
+      :received_messages, :sent_messages]).html_safe
+    @other_users = current_or_guest_user.preferred_others.to_json(:include => :photos).html_safe
   end
 
   def guest

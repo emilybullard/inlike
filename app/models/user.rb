@@ -68,8 +68,12 @@ class User < ActiveRecord::Base
     user
   end
 
-  def make_decision(params, decision)
-    self.decisions.create!(decided_id: params, like: decision)
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+        user.email = data["email"] if user.email.blank?
+      end
+    end
   end
 
   def create_photos
@@ -85,20 +89,24 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.new_with_session(params, session)
-    super.tap do |user|
-      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-        user.email = data["email"] if user.email.blank?
-      end
-    end
-  end
-
   def facebook
     @facebook ||= Koala::Facebook::API.new(oauth_token)
   end
 
   def set_guest_photo
     self.photos.create(:image_url => "https://dl.dropboxusercontent.com/u/34120492/frankocean.jpg")
+  end
+
+  def preferred_others
+    if self.preference == "b"
+      User.includes(:photos).where("id != ?", self.id)
+    else
+      User.includes(:photos).where("id != ? AND gender = ?", self.id, self.preference)
+    end
+  end
+
+  def make_decision(params, decision)
+    self.decisions.create!(decided_id: params, like: decision)
   end
 
   private
